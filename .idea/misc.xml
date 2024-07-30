@@ -9,6 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/_01mariadb/pom.xml" />
         <option value="$PROJECT_DIR$/_mariadb/pom.xml" />
       </set>
     </option>
