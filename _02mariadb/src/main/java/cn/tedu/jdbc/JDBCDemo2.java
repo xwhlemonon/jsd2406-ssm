@@ -1,17 +1,16 @@
 package cn.tedu.jdbc;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
 public class JDBCDemo2 {
-    public static void main(String[] args) {
-        Connection connection = null;
+    public Connection connection = null;
+
+    public JDBCDemo2() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tedu?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true", "root", "root");
+            connection = JDBCSuper.getConnection();
             Statement statement = connection.createStatement();
             Scanner scanner = new Scanner(System.in);
             System.out.println("请输入用户名：");
@@ -25,8 +24,9 @@ public class JDBCDemo2 {
             } else {
                 System.out.println("更新成功···");
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("更改错误···");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+//            System.out.println("更改错误···");
         } finally {
             try {
                 connection.close();
@@ -34,5 +34,9 @@ public class JDBCDemo2 {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new JDBCDemo2();
     }
 }
