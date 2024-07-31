@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class JDBCDemo4 {
     public JDBCDemo4() {
-        try (Connection connection = JDBCSuper.getConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = JDBCUtil.getConnection(); Statement statement = connection.createStatement()) {
             run(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);

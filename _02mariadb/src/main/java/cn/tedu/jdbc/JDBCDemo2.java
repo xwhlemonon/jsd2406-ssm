@@ -10,7 +10,7 @@ public class JDBCDemo2 {
 
     public JDBCDemo2() {
         try {
-            connection = JDBCSuper.getConnection();
+            connection = JDBCUtil.getConnection();
             Statement statement = connection.createStatement();
             Scanner scanner = new Scanner(System.in);
             System.out.println("请输入用户名：");

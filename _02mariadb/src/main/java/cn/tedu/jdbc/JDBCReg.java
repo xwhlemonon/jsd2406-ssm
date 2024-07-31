@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class JDBCReg {
     public JDBCReg() {
         try {
-            Connection connection = JDBCSuper.getConnection();
+            Connection connection = JDBCUtil.getConnection();
             run(connection);
         } catch (SQLException e) {
             System.out.println("数据库错误···");

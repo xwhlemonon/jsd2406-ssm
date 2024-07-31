@@ -10,7 +10,7 @@ public class JDBCDemo5 {
     private final Scanner scanner = new Scanner(System.in);
 
     public JDBCDemo5() {
-        try (Connection connection = JDBCSuper.getConnection()) {
+        try (Connection connection = JDBCUtil.getConnection()) {
             while (!run(connection)) {
                 System.out.println("重试···");
             }

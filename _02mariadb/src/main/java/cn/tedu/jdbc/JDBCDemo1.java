@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class JDBCDemo1 {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Connection connection = JDBCSuper.getConnection();
+        Connection connection = JDBCUtil.getConnection();
         Statement statement = connection.createStatement();
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
