@@ -3,4 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tedu._04mybatis.mapper.CommentMapper">
+    <resultMap id="map5" type="cn.tedu._04mybatis.pojo.vo.CommentVO3">
+        <id column="wid" property="id"/>
+        <collection property="comments" ofType="cn.tedu._04mybatis.pojo.entity.Comment">
+            <id column="cid" property="id"/>
+            <result column="content" property="content"/>
+            <result column="created" property="created"/>
+            <result column="user_id" property="userId"/>
+            <result column="weibo_id" property="weiboId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectMap" resultMap="map5">
+        SELECT w.id wid, c.id cid, c.content, c.created, c.user_id, c.weibo_id
+        FROM weibo w
+                 JOIN comment c ON w.id = c.weibo_id
+        WHERE w.id = #{id};
+    </select>
 </mapper>

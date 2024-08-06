@@ -26,7 +26,8 @@ class CommentTests {
 
 //        System.out.println(commentMapper.selectCommentById(301L));
 
-        System.out.println(commentMapper.selectCommentByUserId(101L));
+//        System.out.println(commentMapper.selectCommentByUserId(101L));
+        System.out.println(commentMapper.selectMap(201L));
     }
 
 }

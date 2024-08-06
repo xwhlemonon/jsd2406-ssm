@@ -84,4 +84,34 @@
         SELECT COUNT(*)
         FROM weibo
     </select>
+
+    <resultMap id="map1" type="cn.tedu._04mybatis.pojo.vo.WeiboVO3">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="selectWeibo" resultMap="map1">
+        SELECT id, content, user_id
+        FROM weibo
+        WHERE id = #{id};
+    </select>
+
+    <resultMap id="map2" type="cn.tedu._04mybatis.pojo.vo.WeiboVO4">
+        <id column="uid" property="id"/>
+        <result column="nickname" property="nickname"/>
+        <collection property="weiboList" ofType="cn.tedu._04mybatis.pojo.entity.Weibo">
+            <id column="wid" property="id"/>
+            <result column="content" property="content"/>
+            <result column="created" property="created"/>
+            <result column="user_id" property="userId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectMap" resultMap="map2">
+        SELECT user.id uid, user.nickname, weibo.id wid, weibo.content, weibo.created, weibo.user_id
+        FROM weibo
+                 JOIN user ON user.id = weibo.user_id
+        WHERE user.id = #{id}
+    </select>
 </mapper>
