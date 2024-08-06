@@ -29,4 +29,13 @@ public interface WeiboMapper {
 
     //    @Select("SELECT content, user_id userId FROM weibo")
     List<WeiboVO2> selectWeiboVO2();
+
+    void updateDynamic(Weibo weibo);
+
+    void deleteDynamic(Long[] id);
+
+    void deleteDynamicList(List<Long> id);
+
+    int selectNum();
+
 }
