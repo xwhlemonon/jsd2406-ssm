@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.egmybatis5.mapper.CustomersMapper">
+    <insert id="insert">INSERT INTO customers (cust_id, cust_tel, cust_name, city)
+                        VALUES (#{custId}, #{custTel}, #{custName}, #{city})</insert>
+    <delete id="delete">DELETE
+                        FROM customers
+                        WHERE cust_id = #{custId}</delete>
+    <update id="update">UPDATE customers
+                        SET cust_tel  = #{custTel},
+                            cust_name = #{custName},
+                            city      = #{city}
+                        WHERE cust_id = #{custId}</update>
+    <select id="select" resultType="cn.tedu.egmybatis5.pojo.vo.VO3">SELECT customers.cust_id custId,
+                                                                           cust_name         custName,
+                                                                           order_id          orderId,
+                                                                           amt,
+                                                                           status
+                                                                    FROM customers
+                                                                             JOIN mybatisdb.orders o ON customers.cust_id = o.cust_id
+                                                                    WHERE customers.cust_id = #{custId}</select>
+</mapper>
