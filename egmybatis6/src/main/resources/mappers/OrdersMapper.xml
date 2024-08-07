@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.egmybatis6.mapper.OrdersMapper">
+    <insert id="insertOrders">
+        insert into orders (order_id, cust_id, order_date, status, products_num, amt)
+        values (#{orderId}, #{custId}, #{orderDate}, #{status}, #{productsNum}, #{amt});
+    </insert>
+
+    <update id="updateOrders">
+        update orders
+        <set>
+            <if test="custId!=null">cust_id = #{custId},</if>
+            <if test="orderDate!=null">order_date = #{orderDate},</if>
+            <if test="status!=null">status = #{status},</if>
+            <if test="productsNum!=null">products_num = #{productsNum},</if>
+            <if test="amt!=null">amt = #{amt}</if>
+        </set>
+        where order_id = #{orderId};
+    </update>
+</mapper>

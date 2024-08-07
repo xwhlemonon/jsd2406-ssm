@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.egmybatis6.mapper.CustomersMapper">
+    <insert id="insertCust">
+        INSERT INTO customers (cust_id, cust_tel, cust_name, city)
+        VALUES (#{custId}, #{custTel}, #{custName}, #{city});
+    </insert>
+
+    <resultMap id="map1" type="cn.tedu.egmybatis6.pojo.vo.CustomersVO1">
+        <result column="cust_name" property="custName"/>
+        <result column="cust_tel" property="custTel"/>
+    </resultMap>
+
+    <select id="selectByCustId" resultMap="map1">
+        SELECT cust_name, cust_tel
+        FROM customers
+        WHERE cust_id = #{custId};
+    </select>
+
+    <resultMap id="map2" type="cn.tedu.egmybatis6.pojo.vo.CustomersVO2">
+        <result column="cust_name" property="custName"/>
+        <result column="city" property="city"/>
+    </resultMap>
+
+    <select id="selectByCity" resultMap="map2">
+        SELECT cust_name, city
+        FROM customers
+        WHERE city = #{city};
+    </select>
+
+    <resultMap id="map3" type="cn.tedu.egmybatis6.pojo.vo.CustomersVO3">
+        <id column="cid" property="custId"/>
+        <result column="cust_name" property="custName"/>
+        <collection property="ordersList" ofType="cn.tedu.egmybatis6.pojo.entity.Orders">
+            <id column="order_id" property="orderId"/>
+            <result column="oid" property="custId"/>
+            <result column="order_date" property="orderDate"/>
+            <result column="status" property="status"/>
+            <result column="products_num" property="productsNum"/>
+            <result column="amt" property="amt"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectByCustOfList" resultMap="map3">
+        select c.cust_id cid,
+               cust_name,
+               order_id,
+               o.cust_id oid,
+               order_date,
+               status,
+               products_num,
+               amt
+        from customers c
+                 join mybatisdb.orders o on c.cust_id = o.cust_id
+        where c.cust_id = #{custId};
+    </select>
+</mapper>
