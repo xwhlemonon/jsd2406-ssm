@@ -10,5 +10,5 @@ public interface UserMapper {
 
     void insertUser(UserRegVO vo);
 
-
+    void deleteUser(String username);
 }

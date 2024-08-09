@@ -7,6 +7,16 @@
 <body style="text-align: center">
 <h1>微博系统</h1>
 <a href="/login.html">登录</a><br>
-<a href="/reg.html">注册</a>
+<a href="/reg.html">注册</a><br>
+<a href="/delete.html">注销当前账户</a><br><br>
+<hr style="border: none;height: 2px;background-color: red;width: 200px">
+<br>
+<form action="v1/users/current" method="get">
+    <input type="submit" value="查看登录状态">
+</form>
+<br>
+<form action="v1/users/outUser" method="get">
+    <input type="submit" value="退出登录">
+</form>
 </body>
 </html>
