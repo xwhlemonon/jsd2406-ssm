@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.egaddress01.mapper.AddressMapper">
+    <select id="selectAddress" resultType="cn.tedu.egaddress01.pojo.entity.Address">
+        SELECT id, receiver, address, email, mobile, tag
+        FROM address;
+    </select>
+
+    <insert id="insertAddress">
+        INSERT INTO address (receiver, address, email, mobile, tag)
+        VALUES (#{receiver}, #{address}, #{email}, #{mobile}, #{tag});
+    </insert>
+
+    <update id="updateAddress">
+        UPDATE address
+        <set>
+            <if test="receiver!=null">receiver = #{receiver},</if>
+            <if test="address!=null">address = #{address},</if>
+            <if test="email!=null">email = #{email},</if>
+            <if test="mobile!=null">mobile = #{mobile},</if>
+            <if test="tag!=null">tag = #{tag}</if>
+        </set>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteAddress">
+        DELETE
+        FROM address
+        WHERE id = #{id};
+    </delete>
+</mapper>

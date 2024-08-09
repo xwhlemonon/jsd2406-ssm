@@ -1,0 +1,21 @@
+POST http://localhost:8080/bmi/get
+Content-Type: application/x-www-form-urlencoded
+
+id = 99 &
+content = new-element
+
+###
+POST http://localhost:8080/bmi/get
+Content-Type: application/json
+
+{}
+
+### BMI测试
+GET http://localhost:8080/v1/users/login/reg2?username=xwh&password=123
+Accept: application/json
+
+### bmi
+GET http://localhost:8080/bmi/get?height=1.5&weight=50
+Accept: application/json
+
+###
