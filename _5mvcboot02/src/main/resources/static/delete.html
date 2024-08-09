@@ -5,11 +5,11 @@
     <title>UserDelete</title>
 </head>
 <body style="text-align: center">
-<form action="http://localhost:8080/users/deleteUser" method="post">
+<form action="/users/deleteUser" method="post">
     <label>
-        <input style="margin-bottom: 50px" type="text" name="username" placeholder="请输入用户名">
+        <input name="username" placeholder="请输入用户名" style="margin-bottom: 50px" type="text">
         <br>
-        <input style="margin-bottom: 50px" type="password" name="password" placeholder="请输入密码">
+        <input name="password" placeholder="请输入密码" style="margin-bottom: 50px" type="password">
         <br>
         <input style="margin-bottom: 50px" type="submit" value="删除用户">
     </label>

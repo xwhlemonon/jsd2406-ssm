@@ -4,11 +4,12 @@ import cn.tedu._5mvcboot02.mapper.UserMapper;
 import cn.tedu._5mvcboot02.pojo.dto.DeleteUserDTO;
 import cn.tedu._5mvcboot02.pojo.dto.InsertUserDTO;
 import cn.tedu._5mvcboot02.pojo.dto.UpdateUserDTO;
+import cn.tedu._5mvcboot02.pojo.entity.User;
 import cn.tedu._5mvcboot02.pojo.vo.InsertUserVO;
 import cn.tedu._5mvcboot02.pojo.vo.UpdateUserVO;
+import cn.tedu._5mvcboot02.pojo.vo.UserNoIdVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class UserController {
     @Autowired
     public UserMapper userMapper;
 
-    @RequestMapping("insertUser")
+    @PostMapping("insertUser")
     public String insertUser(InsertUserDTO insertUserDTO) {
         if (userMapper.selectNumByUsername(insertUserDTO.getUsername()) == 0) {
             InsertUserVO insertUserVO = new InsertUserVO();
@@ -35,7 +36,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("deleteUser")
+    @PostMapping("deleteUser")
     public String delete(DeleteUserDTO deleteUserDTO) {
         List<Integer> list = userMapper.selectByUsernamePassword(deleteUserDTO);
         if (!list.isEmpty()) {
@@ -48,7 +49,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("updateUser")
+    @PostMapping("updateUser")
     public String update(UpdateUserDTO updateUserDTO) {
         DeleteUserDTO deleteUserDTO = new DeleteUserDTO();
         deleteUserDTO.setUsername(updateUserDTO.getUsername());
@@ -73,13 +74,25 @@ public class UserController {
         }
     }
 
-    @RequestMapping("login")
+    @PostMapping("login")
     public String userLogin(DeleteUserDTO deleteUserDTO) {
         if (userMapper.selectLogin(deleteUserDTO) == 1) {
             return "登录成功···";
         } else {
             return "用户名或密码错误···";
         }
+    }
+
+    @GetMapping("list")
+    public String selectUser() {
+        List<User> users = userMapper.selectUser();
+        return users.toString();
+    }
+
+    @GetMapping("getUser/user{id}")
+    public String selectUserNoId(@PathVariable Integer id) {
+        UserNoIdVO userNoIdVO = userMapper.selectNoId(id);
+        return userNoIdVO.toString();
     }
 
 }

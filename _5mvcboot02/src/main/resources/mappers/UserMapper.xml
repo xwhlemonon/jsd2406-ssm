@@ -43,4 +43,15 @@
         WHERE username = #{username}
           AND password = #{password};
     </select>
+
+    <select id="selectUser" resultType="cn.tedu._5mvcboot02.pojo.entity.User">
+        SELECT id, username, password, nickname, created
+        FROM user;
+    </select>
+
+    <select id="selectNoId" resultType="cn.tedu._5mvcboot02.pojo.vo.UserNoIdVO">
+        SELECT username, password, nickname, created
+        FROM user
+        WHERE id = #{id};
+    </select>
 </mapper>
