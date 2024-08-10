@@ -6,10 +6,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserRegVO {
-    private String username;
-    private String password;
-    private String nickname;
+public class WeiboInsertVO {
+    private String content;
     @JsonFormat(pattern = "yyyy-MM-DD HH:mm:ss", timezone = "GMT+8")
     private Date created;
+    private Long userId;
 }

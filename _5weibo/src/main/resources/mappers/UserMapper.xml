@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tedu._5weibo.mapper.UserMapper">
     <select id="selectNumByUsername" resultType="cn.tedu._5weibo.pojo.vo.UserSelectUserVO">
-        SELECT username, password
+        SELECT id, username, password
         FROM user
         WHERE username = #{username}
     </select>
@@ -19,4 +19,10 @@
         FROM user
         WHERE username = #{username};
     </delete>
+
+    <select id="selectNumById" resultType="cn.tedu._5weibo.pojo.vo.UserUsernameByIdVO">
+        SELECT username, created
+        FROM user
+        where id = #{id};
+    </select>
 </mapper>

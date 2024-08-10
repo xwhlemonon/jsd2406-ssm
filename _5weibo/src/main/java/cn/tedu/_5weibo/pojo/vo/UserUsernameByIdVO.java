@@ -6,10 +6,8 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserRegVO {
+public class UserUsernameByIdVO {
     private String username;
-    private String password;
-    private String nickname;
     @JsonFormat(pattern = "yyyy-MM-DD HH:mm:ss", timezone = "GMT+8")
     private Date created;
 }
