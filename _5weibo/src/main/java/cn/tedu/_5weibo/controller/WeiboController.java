@@ -6,6 +6,7 @@ import cn.tedu._5weibo.pojo.entity.Weibo;
 import cn.tedu._5weibo.pojo.vo.UserSelectUserVO;
 import cn.tedu._5weibo.pojo.vo.UserUsernameByIdVO;
 import cn.tedu._5weibo.pojo.vo.WeiboInsertVO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+@Api(tags = "02.微博模块")
 @RestController
 @RequestMapping("/v1/weibo/")
 public class WeiboController {
@@ -53,7 +55,7 @@ public class WeiboController {
     }
 
     @GetMapping("weibo")
-    public String weibo(HttpSession session) {
+    public String weibo() {
         List<Weibo> weibo = mapper.selectWeibo();
         if (weibo.isEmpty()) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>没有任何微博</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";

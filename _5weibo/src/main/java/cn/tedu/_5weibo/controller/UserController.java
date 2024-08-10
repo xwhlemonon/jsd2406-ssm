@@ -5,16 +5,20 @@ import cn.tedu._5weibo.pojo.dto.UserLoginDTO;
 import cn.tedu._5weibo.pojo.dto.UserRegDTO;
 import cn.tedu._5weibo.pojo.vo.UserRegVO;
 import cn.tedu._5weibo.pojo.vo.UserSelectUserVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+@Api(tags = "01.用户模块")
 @RestController
 @RequestMapping("/v1/users/")
 public class UserController {
@@ -25,8 +29,9 @@ public class UserController {
         this.mapper = mapper;
     }
 
+    @ApiOperation(value = "注册功能")
     @PostMapping("reg")
-    public String userReg(UserRegDTO dto, HttpSession session) {
+    public String userReg(UserRegDTO dto, @ApiIgnore HttpSession session) {
         if (session.getAttribute("user") != null) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>请退出登录</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         }
@@ -59,8 +64,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "登录功能")
     @PostMapping("login")
-    public String userCurrent(UserLoginDTO dto, HttpSession session) {
+    public String userCurrent(UserLoginDTO dto, @ApiIgnore HttpSession session) {
         String username = dto.getUsername();
         String password = dto.getPassword();
         List<UserSelectUserVO> user = mapper.selectNumByUsername(username);
@@ -79,8 +85,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "在线功能")
     @GetMapping("current")
-    public String userCurrent(HttpSession session) {
+    public String userCurrent(@ApiIgnore HttpSession session) {
         String user = (String) session.getAttribute("user");
         if (user == null) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户未登录</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
@@ -89,8 +96,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "离线功能")
     @GetMapping("outUser")
-    public String outUser(HttpSession session) {
+    public String outUser(@ApiIgnore HttpSession session) {
         if (session.getAttribute("user") == null) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户未登录</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else {
@@ -99,8 +107,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "注销功能")
     @PostMapping("delete")
-    public String deleteUser(HttpSession session) {
+    public String deleteUser(@ApiIgnore HttpSession session) {
         String user = (String) session.getAttribute("user");
         if (user == null) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>未登录，请登录后再次尝试</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
