@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发微博</title>
+</head>
+<body style="text-align: center">
+<h1>发微博页面</h1>
+<br>
+<div style="margin-top: 30px">
+    <form action="/v1/weibo/insert" method="post">
+        <label>
+            <textarea cols="75" name="content" placeholder="微博内容" rows="10"></textarea>
+        </label><br>
+        <input type="submit" value="发布">
+    </form>
+    <br>
+    <form action="/index.html">
+        <input type="submit" value="返回">
+    </form>
+</div>
+</body>
+</html>

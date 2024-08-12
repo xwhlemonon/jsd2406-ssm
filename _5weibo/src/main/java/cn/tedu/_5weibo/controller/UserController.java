@@ -7,6 +7,7 @@ import cn.tedu._5weibo.pojo.vo.UserRegVO;
 import cn.tedu._5weibo.pojo.vo.UserSelectUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Api(tags = "01.用户模块")
 @RestController
 @RequestMapping("/v1/users/")
@@ -32,6 +34,7 @@ public class UserController {
     @ApiOperation(value = "注册功能")
     @PostMapping("reg")
     public String userReg(UserRegDTO dto, @ApiIgnore HttpSession session) {
+        log.debug(dto.toString());
         if (session.getAttribute("user") != null) {
             return "<div style=\"text-align: center;margin-top: 30px\"><h2>请退出登录</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         }
@@ -39,11 +42,11 @@ public class UserController {
         String password = dto.getPassword();
         String nickname = dto.getNickname();
         if (username.trim().isEmpty()) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户名不能为空</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户名不能为空</h2><br><form action=\"/reg.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else if (password.trim().isEmpty()) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>密码不能为空</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>密码不能为空</h2><br><form action=\"/reg.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else if (nickname.trim().isEmpty()) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>昵称不能为空</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>昵称不能为空</h2><br><form action=\"/reg.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else {
             List<UserSelectUserVO> user = mapper.selectNumByUsername(username);
             if (user.size() == 1) {
@@ -75,13 +78,13 @@ public class UserController {
                 session.setAttribute("user", username);
                 return "<div style=\"text-align: center;margin-top: 30px\"><h2>登录成功</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
             } else {
-                return "<div style=\"text-align: center;margin-top: 30px\"><h2>密码错误</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+                return "<div style=\"text-align: center;margin-top: 30px\"><h2>密码错误</h2><br><form action=\"/login.html\"><input type=\"submit\" value=\"返回\"></form></div>";
             }
         } else if (user.isEmpty()) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户名错误</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>用户名错误</h2><br><form action=\"/login.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else {
             System.out.println("用户重复");
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>系统错误</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>系统错误</h2><br><form action=\"/login.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         }
     }
 

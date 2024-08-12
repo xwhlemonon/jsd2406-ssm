@@ -7,11 +7,15 @@ import cn.tedu._5weibo.pojo.vo.UserSelectUserVO;
 import cn.tedu._5weibo.pojo.vo.UserUsernameByIdVO;
 import cn.tedu._5weibo.pojo.vo.WeiboInsertVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -36,13 +40,15 @@ public class WeiboController {
         this.userMapper = userMapper;
     }
 
+    @ApiOperation("发布微博")
     @PostMapping("insert")
-    public String insertWeibo(String content, HttpSession session) {
+    @ApiImplicitParams(value = {@ApiImplicitParam(name = "content", value = "微博编号", required = true, dataType = "string"), @ApiImplicitParam(name = "text", value = "测试", required = true, dataType = "long")})
+    public String insertWeibo(String content, Long text, @ApiIgnore HttpSession session) {
         String user = (String) session.getAttribute("user");
         if (user == null) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>未登录，请登录后再次尝试</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>未登录，请登录后再次尝试</h2><br><form action=\"/login.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else if (content == null || content.trim().isEmpty()) {
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>内容不能为空</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>内容不能为空</h2><br><form action=\"/insertWeibo.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         } else {
             List<UserSelectUserVO> users = userMapper.selectNumByUsername(user);
             WeiboInsertVO vo = new WeiboInsertVO();
@@ -50,10 +56,11 @@ public class WeiboController {
             vo.setCreated(new Date());
             vo.setUserId(users.get(0).getId());
             mapper.insertWeibo(vo);
-            return "<div style=\"text-align: center;margin-top: 30px\"><h2>发布成功</h2><br><form action=\"/index.html\"><input type=\"submit\" value=\"返回\"></form></div>";
+            return "<div style=\"text-align: center;margin-top: 30px\"><h2>发布成功</h2><br><form action=\"/insertWeibo.html\"><input type=\"submit\" value=\"返回\"></form></div>";
         }
     }
 
+    @ApiOperation("查看微博")
     @GetMapping("weibo")
     public String weibo() {
         List<Weibo> weibo = mapper.selectWeibo();

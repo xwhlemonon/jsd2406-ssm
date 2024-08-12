@@ -2,19 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>微博系统</title>
 </head>
 <body style="text-align: center">
-<a href="/insert.html" style="text-align: center">注册账户</a>
+<h1>微博系统</h1>
+<form action="/login.html" method="get">
+    <input type="submit" value="登录">
+</form>
 <br>
-<a href="/delete.html" style="text-align: center">注销账户</a>
+<form action="/reg.html" method="get">
+    <input type="submit" value="注册">
+</form>
 <br>
-<a href="/update.html" style="text-align: center">更改密码或昵称</a>
+<form action="/insertWeibo.html" method="get">
+    <input type="submit" value="发布微博">
+</form>
 <br>
-<a href="/login.html" style="text-align: center">登录</a>
+<form action="/v1/weibo/weibo" method="get">
+    <input type="submit" value="查看微博">
+</form>
 <br>
-<a href="/users.html" style="text-align: center">用户</a>
+<hr style="border: none;height: 2px;background-color: red;width: 200px">
+<form action="/v1/users/current" method="get">
+    <input type="submit" value="查看登录状态">
+</form>
 <br>
-<a href="/userNoId.html" style="text-align: center">查询用户</a>
+<form action="/logoff.html" method="get">
+    <input type="submit" value="注销当前账户">
+</form>
+<br>
+<form action="/v1/users/outUser" method="get">
+    <input type="submit" value="退出登录">
+</form>
 </body>
 </html>
